@@ -9,7 +9,7 @@ float yPos = 0.75;
 float zPos = 0;
 float startXPos = 0.5;
 float startYPos = 0.5;
-float angle = 0;
+//float angle = 0;
 int yDirection = 0; //1-up, 0-down
 int xDirection = 0; //1-right, 0-left, 3- STOPPED
 float width = 1200.0f;
@@ -37,31 +37,7 @@ void init()
 	
 }
 
-
-void display()
-{
-	
-	//color buffer gets cleared everytime a new frame is drawn
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	glLoadIdentity();
-
-	glColor3f(1, 0, 0);
-
-	glTranslated(xPos, yPos, zPos);
-	//glRotatef(angle, 0, 1, 0);
-	hexagon();
-	glutSwapBuffers();
-	angle += 0.02;
-	if (xDirection == 0) { //if moving left
-		xPos -= 0.0002;	//move in a negative direction along the xaxis	
-		yPos -= 0.0002; 
-	}
-	else if (xDirection == 1) {
-		xPos += 0.0002;	//otherwise move in the positive direction
-		yPos += 0.0002;
-	}
-
+void checkEdges() {
 	if (xDirection == 0 && xPos > 0.0) {
 		xDirection = 0;
 	}
@@ -77,6 +53,32 @@ void display()
 	if (xDirection == 1 && xPos > startYPos) {
 		xDirection = 0;
 	}
+}
+void display()
+{
+	
+	//color buffer gets cleared everytime a new frame is drawn
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glLoadIdentity();
+
+	glColor3f(1, 0, 0);
+
+	glTranslated(xPos, yPos, zPos);
+	//glRotatef(angle, 0, 1, 0);
+	hexagon();
+	glutSwapBuffers();
+	//angle += 0.02;
+	if (xDirection == 0) { //if moving left
+		xPos -= 0.0002;	//move in a negative direction along the xaxis	
+		yPos -= 0.0002; 
+	}
+	else if (xDirection == 1) {
+		xPos += 0.0002;	//otherwise move in the positive direction
+		yPos += 0.0002;
+	}
+
+	checkEdges();
 
 	glutPostRedisplay();
 
