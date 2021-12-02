@@ -9,9 +9,10 @@ float yPos = 0.75;
 float zPos = 0;
 float startXPos = 0.5;
 float startYPos = 0.5;
-//float angle = 0;
+float angle = 0;
+
 int yDirection = 0; //1-up, 0-down
-int xDirection = 0; //1-right, 0-left, 3- STOPPED
+int xDirection = 0; //1-right, 0-left
 float width = 1200.0f;
 float height = 720.0f;
 float r = 0;
@@ -20,7 +21,6 @@ float b = 0;
 void hexagon() {
 	
 	glColor3f(r, g, b);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glBegin(GL_POLYGON);
 	glVertex2d(0, 0.5);
 	glVertex2d(0.25, 0.25);
@@ -57,7 +57,6 @@ void checkEdges() {
 void display()
 {
 	
-	//color buffer gets cleared everytime a new frame is drawn
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glLoadIdentity();
@@ -65,10 +64,11 @@ void display()
 	glColor3f(1, 0, 0);
 
 	glTranslated(xPos, yPos, zPos);
-	//glRotatef(angle, 0, 1, 0);
+	glRotatef(angle, 0, 1, 0);
+
 	hexagon();
 	glutSwapBuffers();
-	//angle += 0.02;
+	angle += 0.02;
 	if (xDirection == 0) { //if moving left
 		xPos -= 0.0002;	//move in a negative direction along the xaxis	
 		yPos -= 0.0002; 
@@ -87,7 +87,7 @@ void display()
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);  //double pixel buffer that holds RGB 
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); 
 
 	glutInitWindowSize(1200, 720);
 	glutInitWindowPosition(0, 0);
